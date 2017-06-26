@@ -1,10 +1,5 @@
 /* This is a CSS comment.*/
 
-.description{	
-	color: #7C8B88;
-	max-width: 705px
-	}
-
 .title{
 	background-color: #33BEBE;
 	color: white;
@@ -12,21 +7,29 @@
 }
 .app{
 	display: flex;
-	padding: 20px;
-
 }
 
 .screenshot{
-	
-	margin-top: auto;
+	max-width: 420px;
+	min-width: 250px;
+	margin-top: 20px;
 	margin-bottom: auto;
 	vertical-align: middle;
 	margin-right: 20px;
 	margin-left: 20px;
 }
 
+.screenshot img{
+	width: 100%;
+	height: auto;
+}
 
-/* {
+.intro{	
+	color: #7C8B88;
+	max-width: 705px
+}
+
+* {
    outline: 1px solid red !important;
 }
 
