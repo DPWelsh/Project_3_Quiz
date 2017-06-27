@@ -5,7 +5,7 @@
 	color: white;
 	padding: 20px;
 }
-.app{
+.front{
 	display: flex;
 }
 
@@ -24,12 +24,16 @@
 	height: auto;
 }
 
+.text{
+	color: blue;
+}
+
 .intro{	
 	color: #7C8B88;
 	max-width: 705px
 }
 
-/* {
+* {
    outline: 1px solid red !important;
 }
 
