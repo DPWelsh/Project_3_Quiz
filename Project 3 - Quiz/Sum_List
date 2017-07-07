@@ -1,0 +1,10 @@
+def sum_list(list):
+    count = 0
+    sum = 0
+    while(count < len(list)):
+        sum = sum + list[count]
+        count + 1
+    return sum
+
+print(sum_list([1, 7, 4]))
+#>>> 12
