@@ -49,10 +49,6 @@ def findMax(string):
 
 levelList = ['easy','Medium','hard']
 
-
-
-
-
 def chooseLevel():
     while True:
         levelChoice = input()
@@ -64,14 +60,10 @@ def chooseLevel():
                 break
         print("That is not a level, please try again")
 
-
-
-
-
-
-
 print("Hello, welcome to my game - Udacity Project 3 - Quiz")
 print("which level would you like? Please type 'Easy', 'Medium' or 'Hard'")
+
+#Test
 
 chooseLevel()
 
