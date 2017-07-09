@@ -16,23 +16,6 @@
 # To help you get started, we've provided a sample paragraph that you can use when testing your code.
 # Your game should consist of 3 or more levels, so you should add your own paragraphs as well!
 
-sample = '''A ___1___ is created with the def keyword. You specify the inputs a ___1___ takes by
-adding ___2___ separated by commas between the parentheses. ___1___s by default return ___3___ if you
-don't specify the value to return. ___2___ can be standard data types such as string, number, dictionary,
-tuple, and ___4___ or can be more complicated such as objects and lambda functions.'''
-
-def findMax(string):
-    max = 0
-    index = 0
-    for a in sample:
-        if(a.isdigit() and sample[index +1] == '_' and sample[index -1] == '_'):
-            digit = int(a)
-            if(digit > max):
-                max = digit
-                print("Max: "+str(max))
-        index +=1
-#findMax(sample)
-
 # The answer for ___1___ is 'function'. Can you figure out the others?
 
 # We've also given you a file called fill-in-the-blanks.pyc which is a working version of the project.
@@ -47,8 +30,33 @@ def findMax(string):
 
 # If you need help, you can sign up for a 1 on 1 coaching appointment: https://calendly.com/ipnd-1-1/20min/
 
-levelList = ['easy','Medium','hard']
+levelList = ['easy','medium','hard']
 
+sample = [""]
+answers = [""]
+
+sample_easy = '''A ___1___ is created with the def keyword. You specify the inputs a ___1___ takes by
+adding ___2___ separated by commas between the parentheses. ___1___s by default return ___3___ if you
+don't specify the value to return. ___2___ can be standard data types such as string, number, dictionary,
+tuple, and ___4___ or can be more complicated such as objects and lambda functions.'''
+
+sample_answers_easy = ["function","parameters","None","boolean"]
+
+sample_medium = '''A ___1___ is created with the def keyword. You specify the inputs a ___1___ takes by
+adding ___2___ separated by commas between the parentheses. ___1___s by default return ___3___ if you
+don't specify the value to return. ___2___ can be standard data types such as string, number, dictionary,
+tuple, and ___4___ or can be more complicated such as ___5___ and lambda functions.'''
+
+sample_answers_medium = ["function","parameters","None","boolean","objects"]
+
+sample_hard = '''A ___1___ is created with the def keyword. You specify the inputs a ___1___ takes by
+adding ___2___ separated by commas between the parentheses. ___1___s by default return ___3___ if you
+don't specify the value to return. ___2___ can be standard data types such as string, number, dictionary,
+tuple, and ___4___ or can be more complicated such as ___5___ and ___6___ functions.'''
+
+sample_answers_hard = ["function","parameters","None","boolean","objects","lambda"]
+
+## fucntion to choose the level - based on user input - returns the choice of the level.
 def chooseLevel():
     while True:
         levelChoice = input()
@@ -60,12 +68,77 @@ def chooseLevel():
                 break
         print("That is not a level, please try again")
 
+def findMax(string):
+    max = 0
+    index = 0
+    for a in sample:
+        if(a.isdigit() and sample[index +1] == '_' and sample[index -1] == '_'):
+            digit = int(a)
+            if(digit > max):
+                max = digit
+        index +=1
+    return max
+
+
+##Function to update the sample text for the level
+def updateSample(level):
+    if level == 'easy':
+        sample = sample_easy
+    elif level == 'medium':
+        sample = sample_medium
+    elif level == 'hard':
+        sample = sample_hard
+    print(sample)
+    return sample
+
+##Function to update the sample answers for the level
+def updateSampleAnswers(level):
+    if level == 'easy':
+        sample_answers = sample_answers_easy
+    elif level == 'medium':
+        sample_answers = sample_answers_medium
+    elif level == 'hard':
+        sample_answers = sample_answers_hard
+    return sample_answers
+
+def correctGuess(guess,answers,wordNum):
+    currentAnswer = answers[wordNum]
+    if guess.upper() == currentAnswer.upper():
+        return currentAnswer
+    return None
+
+def winOrLose(lives,chosenLives):
+    if chosenLives == lives:
+        print("you LOSE. :( .. Please try again another time.")
+    else:
+        print("you WIN!!")
+
+def playGame(sample, answers):
+    max_num = findMax(sample)
+    lives = 0
+    word_num = 0
+    while(lives < 5 and word_num<max_num):
+        print("** Lives remaining: "+str(5-lives)+" **")
+        print("Choose a word for ___"+str(word_num+1)+"___:")
+        guess = correctGuess(input(),answers,word_num)
+        if guess == None:
+            lives +=1
+        else:
+            toReplace = '___'+str(word_num+1)+'___'
+            print()
+            sample = sample.replace(toReplace,guess)
+            print(sample)
+            word_num +=1
+    winOrLose(lives,5)
+
 print("Hello, welcome to my game - Udacity Project 3 - Quiz")
-print("which level would you like? Please type 'Easy', 'Medium' or 'Hard'")
+print("which level would you like? Please Choose Easy, Medium or Hard")
 
-#Test
+levelChoice = chooseLevel()
+sample = updateSample(levelChoice)
+answers = updateSampleAnswers(levelChoice)
+playGame(sample, answers)
 
-chooseLevel()
 
 
 
