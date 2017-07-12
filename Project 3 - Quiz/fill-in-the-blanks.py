@@ -131,7 +131,7 @@ def playGame(sample, answers):
             word_num +=1
     winOrLose(lives,5)
 
-print("Hello, welcome to my game - Udacity Project 3 - Quiz")
+print("Hello, welcome to my game - Udacity Project 3 - Quiz - Practice")
 print("which level would you like? Please Choose Easy, Medium or Hard")
 
 levelChoice = chooseLevel()
