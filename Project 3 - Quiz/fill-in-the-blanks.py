@@ -40,14 +40,20 @@ adding ___2___ separated by commas between the parentheses. ___1___s by default 
 don't specify the value to return. ___2___ can be standard data types such as string, number, dictionary,
 tuple, and ___4___ or can be more complicated such as objects and lambda functions.'''
 
-sample_answers_easy = ["function","parameters","None","boolean"]
+sample_answers_easy = ["function","parameters","None","List"]
 
-sample_medium = '''A ___1___ is created with the def keyword. You specify the inputs a ___1___ takes by
-adding ___2___ separated by commas between the parentheses. ___1___s by default return ___3___ if you
-don't specify the value to return. ___2___ can be standard data types such as string, number, dictionary,
-tuple, and ___4___ or can be more complicated such as ___5___ and lambda functions.'''
+sample_medium = '''
+___1___ statement:
+    Terminates the ___2___ statement and transfers execution to the statement immediately following the ___2___.
 
-sample_answers_medium = ["function","parameters","None","boolean","objects"]
+continue statement:
+    Causes the ___2___ to skip the remainder of its body and immediately retest its condition prior to reiterating.
+
+___3___ statement:
+    The ___3___ statement in Python is used when a statement is required syntactically but you do not want any command or code to ___4____.
+    '''
+sample_answers_medium = ["Break","loop","Pass","Execute"]
+
 
 sample_hard = '''A ___1___ is created with the def keyword. You specify the inputs a ___1___ takes by
 adding ___2___ separated by commas between the parentheses. ___1___s by default return ___3___ if you
