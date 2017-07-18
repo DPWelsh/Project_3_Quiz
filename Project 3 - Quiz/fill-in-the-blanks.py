@@ -30,19 +30,16 @@
 
 # If you need help, you can sign up for a 1 on 1 coaching appointment: https://calendly.com/ipnd-1-1/20min/
 
-levelList = ['easy','medium','hard']
+level_list = ['easy','medium','hard']
 
-sample = [""]
-answers = [""]
-
-sample_easy = '''A ___1___ is created with the def keyword. You specify the inputs a ___1___ takes by
+game_text_easy = '''A ___1___ is created with the def keyword. You specify the inputs a ___1___ takes by
 adding ___2___ separated by commas between the parentheses. ___1___s by default return ___3___ if you
 don't specify the value to return. ___2___ can be standard data types such as string, number, dictionary,
 tuple, and ___4___ or can be more complicated such as objects and lambda functions.'''
 
-sample_answers_easy = ["function","parameters","None","List"]
+game_text_answers_easy = ["function","parameters","None","List"]
 
-sample_medium = '''
+game_text_medium = '''
 ___1___ statement:
     Terminates the ___2___ statement and transfers execution to the statement immediately following the ___2___.
 
@@ -52,98 +49,114 @@ continue statement:
 ___3___ statement:
     The ___3___ statement in Python is used when a statement is required syntactically but you do not want any command or code to ___4____.
     '''
-sample_answers_medium = ["Break","loop","Pass","Execute"]
+game_text_answers_medium = ["Break","loop","Pass","Execute"]
 
-
-sample_hard = '''A ___1___ is created with the def keyword. You specify the inputs a ___1___ takes by
+game_text_hard = '''A ___1___ is created with the def keyword. You specify the inputs a ___1___ takes by
 adding ___2___ separated by commas between the parentheses. ___1___s by default return ___3___ if you
 don't specify the value to return. ___2___ can be standard data types such as string, number, dictionary,
 tuple, and ___4___ or can be more complicated such as ___5___ and ___6___ functions.'''
 
-sample_answers_hard = ["function","parameters","None","boolean","objects","lambda"]
+game_text_answers_hard = ["function","parameters","None","boolean","objects","lambda"]
 
-## fucntion to choose the level - based on user input - returns the choice of the level.
-def chooseLevel():
+
+# function allows the player to choose the level
+# Input = User Input
+# Output = returns the level of choice (will loop until easy, medium or hard is written)
+def choose_level():
     while True:
-        levelChoice = input()
-        levelChoice = levelChoice.lower()
-        for level in levelList:
-            if levelChoice == level:
-                print("you have chosen: "+levelChoice.upper())
-                return levelChoice
-                break
+        level_choice = input()
+        level_choice = level_choice.lower()
+        for level in level_list:
+            if level_choice == level:
+                print("you have chosen: "+level_choice.upper())
+                return level_choice
         print("That is not a level, please try again")
 
-def findMax(string):
-    max = 0
-    index = 0
-    for a in sample:
-        if(a.isdigit() and sample[index +1] == '_' and sample[index -1] == '_'):
-            digit = int(a)
-            if(digit > max):
-                max = digit
-        index +=1
-    return max
+
+# This function allows the player to choose the number of lives they wish to have - must be a positive digit,
+# input = user input
+# output = number of lives
+def choose_lives():
+    while True:
+        print("How many lives do you want? Please enter a number: ")
+        chosen_lives = input()
+        if chosen_lives.isdigit() and int(chosen_lives)>0:  # Lives need to be positive number
+            print("You have chosen: "+str(chosen_lives)+" lives!")
+            return int(chosen_lives)
+        print("that is not a positive number")
 
 
-##Function to update the sample text for the level
-def updateSample(level):
+# Function to update the game_text text and answers for the level
+# input = chosen level
+# output is desired game level text with respective answers.
+def update_game_text(level):
+    text = ""
+    text_answers = ""
     if level == 'easy':
-        sample = sample_easy
+        text = game_text_easy
+        text_answers = game_text_answers_easy
     elif level == 'medium':
-        sample = sample_medium
+        text = game_text_medium
+        text_answers = game_text_answers_medium
     elif level == 'hard':
-        sample = sample_hard
-    print(sample)
-    return sample
+        text = game_text_hard
+        text_answers = game_text_answers_hard
+    print(text)
+    return text,text_answers
 
-##Function to update the sample answers for the level
-def updateSampleAnswers(level):
-    if level == 'easy':
-        sample_answers = sample_answers_easy
-    elif level == 'medium':
-        sample_answers = sample_answers_medium
-    elif level == 'hard':
-        sample_answers = sample_answers_hard
-    return sample_answers
 
-def correctGuess(guess,answers,wordNum):
-    currentAnswer = answers[wordNum]
-    if guess.upper() == currentAnswer.upper():
-        return currentAnswer
+# Function is used to check if current guess is correct
+# input = current guess, list of answers and the index of the current answer
+# output = if guess equals the required answer (indexed from word_num) then it will return the answers,
+# else it will return None which will cause the player to lose a life
+def correct_guess(guess,answers,word_num):
+    current_answer = answers[word_num]
+    if guess.upper() == current_answer.upper():
+        return current_answer
     return None
 
-def winOrLose(lives,chosenLives):
-    if chosenLives == lives:
-        print("you LOSE. :( .. Please try again another time.")
-    else:
-        print("you WIN!!")
 
-def playGame(sample, answers):
-    max_num = findMax(sample)
-    lives = 0
+# Prints win or lose statement
+# input is lives remaining and the amount of lives chosen by player
+# If lives == chosen lives, then the playet has exhausted all lives and the game prints losing text.
+def win_or_lose(lives,chosen_lives):
+    if chosen_lives == lives:
+        print("** You LOSE. :( .. Please try again another time. **")
+    else:
+        print("** You WIN!! **")
+
+
+# Main portion of game - prompts user to guess the current blank word.
+# if the guess is correct, fill the blank word, if the guess is
+# incorrect, reduce a life
+# keep playing until all lives are lost or there are no more answers.
+def playGame(game_text, answers, num_lives):
+    max_num = len(answers)
+    num_guess = 0
     word_num = 0
-    while(lives < 5 and word_num<max_num):
-        print("** Lives remaining: "+str(5-lives)+" **")
+    while num_guess < num_lives and word_num<max_num:
+        print("** Lives remaining: "+str(num_lives-num_guess)+" **")
         print("Choose a word for ___"+str(word_num+1)+"___:")
-        guess = correctGuess(input(),answers,word_num)
+        guess = correct_guess(input(),answers,word_num)
         if guess == None:
-            lives +=1
+            num_guess +=1
         else:
-            toReplace = '___'+str(word_num+1)+'___'
+            to_replace = '___'+str(word_num+1)+'___'
             print()
-            sample = sample.replace(toReplace,guess)
-            print(sample)
+            game_text = game_text.replace(to_replace,guess)
+            print(game_text)
             word_num +=1
-    winOrLose(lives,5)
+    win_or_lose(num_guess,num_lives)
 
 print("Hello, welcome to my game - Udacity Project 3 - Quiz - Practice")
 print("which level would you like? Please Choose Easy, Medium or Hard")
 
-levelChoice = chooseLevel()
-sample = updateSample(levelChoice)
-answers = updateSampleAnswers(levelChoice)
-playGame(sample, answers)
+levelChoice = choose_level()
+num_lives = choose_lives()
+
+# For neater and condensed code, a tuple is required for selection of the game_text and answers.
+game_text,answers = update_game_text(levelChoice)
+playGame(game_text, answers, num_lives)
 
 
 
