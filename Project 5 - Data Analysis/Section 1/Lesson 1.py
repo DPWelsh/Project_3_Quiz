@@ -116,7 +116,7 @@ udacity_test_accounts = set()
 for enrollment in enrollments:
     if enrollment['is_udacity']:
         udacity_test_accounts.add(enrollment['account_key'])
-print(len(udacity_test_accounts))
+print("num testing accounts: "+str(len(udacity_test_accounts)))
 
 
 # Given some data with an account_key field, removes any records corresponding to Udacity test accounts
@@ -132,9 +132,10 @@ non_udacity_enrollments = remove_udacity_accounts(enrollments)
 non_udacity_engagement = remove_udacity_accounts(daily_engagement)
 non_udacity_submissions = remove_udacity_accounts(project_submissions)
 
-print(len(non_udacity_enrollments))
-print(len(non_udacity_engagement))
-print(len(non_udacity_submissions))
+print("num enrollments: "+str(len(non_udacity_enrollments)))
+print("num engagements: "+str(len(non_udacity_engagement)))
+print("num projects: "+str(len(non_udacity_submissions)))
+
 
 
 
@@ -146,5 +147,19 @@ print(len(non_udacity_submissions))
 ## haven't canceled yet or who remained enrolled for more than 7 days. The keys
 ## should be account keys, and the values should be the date the student enrolled.
 
-# paid_students =
+paid_students = {}
+for enrollment in non_udacity_enrollments:
+    if not enrollment['is_canceled'] or enrollment['days_to_cancel']>7:
+        account_key = enrollment['account_key']
+        enrollment_date = enrollment['join_date']
+
+        if account_key not in paid_students or enrollment_date > paid_students[account_key]:
+            paid_students[account_key] = enrollment_date
+
+print("num paying students: "+str(len(paid_students)))
+
+
+
+
+
 
