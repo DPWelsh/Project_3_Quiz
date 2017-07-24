@@ -158,7 +158,22 @@ for enrollment in non_udacity_enrollments:
 
 print("num paying students: "+str(len(paid_students)))
 
+# Takes a student's join date and the date of a specific engagement record,
+# and returns True if that engagement record happened within one week
+# of the student joining.
+def within_one_week(join_date, engagement_date):
+    time_delta = engagement_date - join_date
+    return time_delta.days < 7
 
+#####################################
+#                 7                 #
+#####################################
+
+## Create a list of rows from the engagement table including only rows where
+## the student is one of the paid students you just found, and the date is within
+## one week of the student's join date.
+
+# paid_engagement_in_first_week =
 
 
 
